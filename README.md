@@ -271,64 +271,47 @@ simple-node-app/
 ├── test-client.js           # Test client
 └── README.md               # This file
 ```
+## 📂 File Descriptions
 
-## Important files
+Below is a summary of the main files in this project and their roles:
 
-`cluster.js`
-In this project, the Cluster.js file orchestrates the distributed system operations. Its main roles are:
+### `Cluster.js`
+**Purpose:** Central controller for the distributed database.
 
+- **Node Management:** Creates, joins, and removes nodes from the cluster.
+- **Replication Coordination:** Ensures data is replicated according to the configured replication factor.
+- **Consistent Hashing:** Maintains the hash ring and assigns data partitions to nodes.
+- **Failure Detection:** Monitors node health and manages recovery when nodes fail.
+- **Cluster APIs:** Provides endpoints for cluster status, ring topology, and data distribution.
 
+### `Node.js`
+**Purpose:** Implements the logic for a single database node.
 
-Managing Nodes: Handles creation, joining, and removal of database nodes in the cluster.  
-Coordinating Replication: Ensures data is replicated across the correct nodes according to the replication factor.  
-Consistent Hashing Ring: Maintains the consistent hashing ring and assigns data partitions to nodes.  
-Failure Detection: Monitors node health and manages automatic recovery when nodes fail.  
-Cluster State: Provides APIs for cluster status, ring topology, and data distribution.  
-Essentially, Cluster.js acts as the central controller for the distributed database, coordinating how nodes interact and how data is managed across the system.  
+- **Local Storage:** Manages the node’s own key-value store (in-memory for this demo).
+- **Peer Communication:** Handles messaging with other nodes for replication and heartbeats.
+- **API Server:** Exposes REST endpoints for data operations and health checks.
+- **Replication Handling:** Processes replication requests from peers.
+- **Failure Detection:** Sends and receives heartbeat messages.
+- **Conflict Resolution:** Uses timestamps or vector clocks to resolve data conflicts.
 
-`node.js`
-In this project, the Node.js file represents an individual database node within the distributed cluster. Its main responsibilities are:
+### `start-node{N}.js`
+**Purpose:** Entry-point scripts to launch individual nodes (e.g., `start-node1.js`, `start-node2.js`).
 
+- **Node Initialization:** Sets up a new node with specific parameters (ID, port, host).
+- **Cluster Connection:** Connects the node to the cluster as a seed or by joining existing nodes.
+- **API Server Startup:** Starts the REST API server for database operations and health checks.
 
-Local Storage: Manages the node’s own key-value data store (usually in-memory for this demo).  
-Peer Communication: Handles communication with other nodes for replication, heartbeats, and data requests.  
-API Server: Exposes REST endpoints for data operations (PUT, GET) and health checks.  
-Replication Handling: Receives and processes replication requests from other nodes.  
-Failure Detection: Sends and receives heartbeat messages to/from peers.  
-Conflict Resolution: Resolves data conflicts using timestamps or vector clocks.  
-In summary, Node.js is the building block of the cluster, implementing the logic for a single node’s data management, communication, and participation in distributed protocols.  
+*Tip:* Run each script in a separate terminal to simulate a multi-node cluster.
 
+### `test-client.js`
+**Purpose:** Automated client for testing the cluster.
 
+- **API Automation:** Sends PUT and GET requests to nodes.
+- **Usage Simulation:** Mimics client operations to verify partitioning, replication, and consistency.
+- **Failure Testing:** Tests cluster behavior during node failures and recovery.
+- **Validation:** Checks data distribution and availability across the cluster.
 
-`server-node{i}`
-The start-node{N}.js files (like start-node1.js, start-node2.js, etc.) are entry-point scripts to launch individual nodes in the cluster.  
-
-
-Their roles:  
-
-Initialize a new node instance (using Node.js and Cluster.js).  
-Set node-specific parameters (such as node ID, port, and host).  
-Connect the node to the cluster (either as a seed or by joining existing nodes).  
-Start the REST API server for database operations and health checks.  
-In summary:  
-Each start-node{N}.js file boots up a separate database node, allowing you to simulate a distributed cluster by running multiple processes—one for each node.  
-
-`test-client.js`
-is a script that acts as a client to test your distributed database cluster. Its main roles are:
-
-
-
-Automates API Requests: Sends PUT and GET requests to nodes to store and retrieve data.
-
-Simulates Real Usage: Mimics client operations to verify partitioning, replication, and consistency.
-
-Failure Testing: Can be used to test cluster behavior when nodes fail or recover.
-
-Validation: Checks if data is correctly distributed and available across the cluster.
-
-In summary:
-Run node test-client.js to automatically test and validate your cluster’s core features and robustness.
-
+*Tip:* Run `node test-client.js` to validate your cluster’s core features and robustness.
 
 ## 🎓 Learning Exercises
 
