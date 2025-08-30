@@ -296,7 +296,7 @@ Below is a summary of the main files in this project and their roles:
 
 ### `start-node{N}.js`
 **Purpose:** Entry-point scripts to launch individual nodes (e.g., `start-node1.js`, `start-node2.js`).  
-`Each node mimics a database server`
+**`Each node mimics a database server.`**
 
 - **Node Initialization:** Sets up a new node with specific parameters (ID, port, host).
 - **Cluster Connection:** Connects the node to the cluster as a seed or by joining existing nodes.
