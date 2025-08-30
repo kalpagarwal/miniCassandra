@@ -1,0 +1,25 @@
+{
+  "name": "simple-node-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:node1": "node start-node1.js",
+    "start:node2": "node start-node2.js",
+    "start:node3": "node start-node3.js",
+    "test": "node test-client.js",
+    "demo": "echo 'Start nodes in separate terminals: npm run start:node1, npm run start:node2, npm run start:node3, then npm test'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.11.0",
+    "chalk": "^4.1.2",
+    "crypto": "^1.0.1",
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "uuid": "^11.1.0"
+  }
+}
